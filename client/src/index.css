@@ -651,7 +651,7 @@ a {
   white-space: nowrap;
 }
 
-/* Priority badges */
+
 .badge-high {
   background: var(--danger-bg);
   color: var(--danger);
@@ -670,7 +670,7 @@ a {
   border: 1px solid rgba(59, 130, 246, 0.25);
 }
 
-/* Status badges */
+
 .badge-pending {
   background: var(--warning-bg);
   color: var(--warning);
