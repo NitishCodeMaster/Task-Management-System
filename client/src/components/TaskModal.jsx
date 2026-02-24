@@ -16,7 +16,10 @@ const TaskModal = ({ task, employees, onSave, onClose }) => {
     };
 
     const formatDateForInput = (dateStr) => {
-        if (!dateStr) return '';
+        if (!dateStr) {
+            const today = new Date();
+            return today.toISOString().split('T')[0];
+        }
         const d = new Date(dateStr);
         return d.toISOString().split('T')[0];
     };

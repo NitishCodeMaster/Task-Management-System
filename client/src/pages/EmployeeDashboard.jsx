@@ -9,6 +9,10 @@ const EmployeeDashboard = () => {
     const [loading, setLoading] = useState(true);
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
+    // Search and Filter States
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filterStatus, setFilterStatus] = useState('All');
+
     const fetchData = useCallback(async () => {
         try {
             setLoading(true);
@@ -67,6 +71,15 @@ const EmployeeDashboard = () => {
         return new Date(deadline) < new Date();
     };
 
+    // Filter Logic
+    const filteredTasks = tasks.filter((task) => {
+        const matchesSearch =
+            task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (task.description && task.description.toLowerCase().includes(searchTerm.toLowerCase()));
+        const matchesStatus = filterStatus === 'All' || task.status === filterStatus;
+        return matchesSearch && matchesStatus;
+    });
+
     if (loading) {
         return (
             <div className="layout">
@@ -118,7 +131,7 @@ const EmployeeDashboard = () => {
                         </div>
 
                         <div className="section-header">
-                            <h2 className="section-title">Assigned Tasks</h2>
+                            <h2 className="section-title">Recent Tasks</h2>
                         </div>
 
                         {tasks.length === 0 ? (
@@ -163,22 +176,60 @@ const EmployeeDashboard = () => {
                     </>
                 )}
 
-                {/* Tasks Tab */}
+                {/* Tasks Tab (With Search & Filter) */}
                 {activeTab === 'tasks' && (
                     <>
                         <div className="section-header">
-                            <h2 className="section-title">All My Tasks ({tasks.length})</h2>
+                            <h2 className="section-title">All My Tasks ({filteredTasks.length})</h2>
                         </div>
 
-                        {tasks.length === 0 ? (
+                        {/* Search & Filter Controls */}
+                        <div style={{ display: 'flex', gap: '15px', marginBottom: '20px', flexWrap: 'wrap' }}>
+                            <input
+                                type="text"
+                                placeholder="🔍 Search tasks..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                style={{
+                                    padding: '10px 15px',
+                                    borderRadius: '8px',
+                                    border: '1px solid var(--border-glass)',
+                                    background: 'var(--bg-glass)',
+                                    color: 'var(--text-primary)',
+                                    flex: 1,
+                                    minWidth: '200px',
+                                    outline: 'none'
+                                }}
+                            />
+                            <select
+                                value={filterStatus}
+                                onChange={(e) => setFilterStatus(e.target.value)}
+                                style={{
+                                    padding: '10px 15px',
+                                    borderRadius: '8px',
+                                    border: '1px solid var(--border-glass)',
+                                    background: 'var(--bg-glass)',
+                                    color: 'var(--text-primary)',
+                                    outline: 'none',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                <option value="All" style={{ background: 'var(--bg-secondary)' }}>All Status</option>
+                                <option value="Pending" style={{ background: 'var(--bg-secondary)' }}>Pending</option>
+                                <option value="In Progress" style={{ background: 'var(--bg-secondary)' }}>In Progress</option>
+                                <option value="Completed" style={{ background: 'var(--bg-secondary)' }}>Completed</option>
+                            </select>
+                        </div>
+
+                        {filteredTasks.length === 0 ? (
                             <div className="empty-state">
                                 <div className="icon">🎉</div>
-                                <h3>No tasks assigned</h3>
-                                <p>You're all caught up! Check back later for new assignments.</p>
+                                <h3>No matching tasks found</h3>
+                                <p>You're all caught up with these filters!</p>
                             </div>
                         ) : (
                             <div className="task-cards-grid">
-                                {tasks.map((task) => (
+                                {filteredTasks.map((task) => (
                                     <div key={task._id} className="task-card">
                                         <div className="task-card-header">
                                             <h3 className="task-card-title">{task.title}</h3>
