@@ -1,5 +1,5 @@
  import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast'; // IMPORT THIS
+import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
@@ -18,7 +18,6 @@ function App() {
     return (
         <AuthProvider>
             <Router>
-                {/* GLOBAL TOAST CONFIGURATION */}
                 <Toaster 
                     position="top-right"
                     toastOptions={{

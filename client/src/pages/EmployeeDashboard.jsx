@@ -9,7 +9,7 @@ const EmployeeDashboard = () => {
     const [loading, setLoading] = useState(true);
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    // Search and Filter States
+    
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState('All');
 
@@ -71,7 +71,6 @@ const EmployeeDashboard = () => {
         return new Date(deadline) < new Date();
     };
 
-    // Filter Logic
     const filteredTasks = tasks.filter((task) => {
         const matchesSearch =
             task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -104,7 +103,7 @@ const EmployeeDashboard = () => {
             </div>
 
             <main className="main-content">
-                {/* Dashboard Tab */}
+                
                 {activeTab === 'dashboard' && stats && (
                     <>
                         <div className="stats-grid">
@@ -176,14 +175,14 @@ const EmployeeDashboard = () => {
                     </>
                 )}
 
-                {/* Tasks Tab (With Search & Filter) */}
+                
                 {activeTab === 'tasks' && (
                     <>
                         <div className="section-header">
                             <h2 className="section-title">All My Tasks ({filteredTasks.length})</h2>
                         </div>
 
-                        {/* Search & Filter Controls */}
+                        
                         <div style={{ display: 'flex', gap: '15px', marginBottom: '20px', flexWrap: 'wrap' }}>
                             <input
                                 type="text"

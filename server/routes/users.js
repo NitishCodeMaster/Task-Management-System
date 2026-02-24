@@ -3,8 +3,6 @@ const router = express.Router();
 const User = require('../models/User');
 const { protect, adminOnly } = require('../middleware/auth');
 
-// @desc    Get all employees (for admin to assign tasks)
-// @route   GET /api/users/employees
 router.get('/employees', protect, adminOnly, async (req, res) => {
     try {
         const employees = await User.find({ role: 'employee' }).select(

@@ -1,8 +1,3 @@
-/* =====================================================
-   TaskFlow Design System — Dark Theme with Glassmorphism
-   ===================================================== */
-
-/* Reset & Base */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -10,7 +5,6 @@
 }
 
 :root {
-  /* Colors */
   --bg-primary: #0f0f1a;
   --bg-secondary: #1a1a2e;
   --bg-card: rgba(26, 26, 46, 0.7);
@@ -37,29 +31,20 @@
   --info: #3b82f6;
   --info-bg: rgba(59, 130, 246, 0.12);
 
-  /* Spacing */
   --sidebar-width: 260px;
   --sidebar-collapsed: 72px;
   --navbar-height: 64px;
-
-  /* Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
-
-  /* Shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
   --shadow-glow: 0 0 24px rgba(124, 58, 237, 0.2);
-
-  /* Transitions */
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s ease;
   --transition-slow: 0.4s ease;
-
-  /* Font */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -73,7 +58,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Background pattern */
 body::before {
   content: '';
   position: fixed;
@@ -99,9 +83,6 @@ a {
   text-decoration: none;
 }
 
-/* =====================================================
-   Auth Pages
-   ===================================================== */
 .auth-container {
   display: flex;
   align-items: center;
@@ -162,7 +143,6 @@ a {
   color: var(--text-primary);
 }
 
-/* Form Elements */
 .form-group {
   margin-bottom: 20px;
 }
@@ -219,7 +199,6 @@ a {
   min-height: 80px;
 }
 
-/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -336,9 +315,6 @@ a {
   border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
-/* =====================================================
-   Layout
-   ===================================================== */
 .layout {
   display: flex;
   min-height: 100vh;
@@ -352,9 +328,6 @@ a {
   transition: margin-left var(--transition-normal);
 }
 
-/* =====================================================
-   Sidebar
-   ===================================================== */
 .sidebar {
   position: fixed;
   top: 0;
@@ -494,9 +467,6 @@ a {
   text-transform: capitalize;
 }
 
-/* =====================================================
-   Navbar
-   ===================================================== */
 .navbar {
   position: fixed;
   top: 0;
@@ -525,9 +495,6 @@ a {
   gap: 12px;
 }
 
-/* =====================================================
-   Stats Cards
-   ===================================================== */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -596,9 +563,6 @@ a {
   font-weight: 500;
 }
 
-/* =====================================================
-   Section Headers
-   ===================================================== */
 .section-header {
   display: flex;
   align-items: center;
@@ -611,9 +575,6 @@ a {
   font-weight: 700;
 }
 
-/* =====================================================
-   Task Table
-   ===================================================== */
 .task-table-container {
   background: var(--bg-card);
   backdrop-filter: blur(12px);
@@ -679,9 +640,6 @@ a {
   gap: 8px;
 }
 
-/* =====================================================
-   Badges
-   ===================================================== */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -731,9 +689,6 @@ a {
   border: 1px solid rgba(16, 185, 129, 0.25);
 }
 
-/* =====================================================
-   Modal
-   ===================================================== */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -782,9 +737,6 @@ a {
   padding: 0 28px 24px;
 }
 
-/* =====================================================
-   Task Cards (Employee View)
-   ===================================================== */
 .task-cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -860,7 +812,6 @@ a {
   color: var(--danger);
 }
 
-/* Status select in task card */
 .status-select {
   padding: 6px 12px;
   background: var(--bg-glass);
@@ -888,9 +839,6 @@ a {
   background: var(--bg-secondary);
 }
 
-/* =====================================================
-   Empty State
-   ===================================================== */
 .empty-state {
   text-align: center;
   padding: 60px 20px;
@@ -913,9 +861,6 @@ a {
   font-size: 14px;
 }
 
-/* =====================================================
-   Animations
-   ===================================================== */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -946,9 +891,6 @@ a {
   margin: 40px auto;
 }
 
-/* =====================================================
-   Responsive
-   ===================================================== */
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
@@ -1016,7 +958,6 @@ a {
   }
 }
 
-/* Hamburger button */
 .hamburger {
   display: none;
   background: none;
@@ -1033,7 +974,6 @@ a {
   }
 }
 
-/* Sidebar backdrop for mobile */
 .sidebar-backdrop {
   display: none;
 }

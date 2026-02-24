@@ -1,8 +1,6 @@
 const Task = require('../models/Task');
 const User = require('../models/User');
 
-// @desc    Get dashboard stats
-// @route   GET /api/dashboard
 const getDashboardStats = async (req, res) => {
     try {
         if (req.user.role === 'admin') {

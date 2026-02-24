@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import toast from 'react-hot-toast'; // ✅ IMPORT ADDED HERE
+import toast from 'react-hot-toast';
 import api from '../services/api';
 import Sidebar from '../components/Sidebar';
 import TaskModal from '../components/TaskModal';
@@ -14,7 +14,7 @@ const AdminDashboard = () => {
     const [editingTask, setEditingTask] = useState(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    // Search and Filter States
+    
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState('All');
 
@@ -31,7 +31,6 @@ const AdminDashboard = () => {
             setEmployees(employeesRes.data);
         } catch (err) {
             console.error('Failed to fetch data:', err);
-            // Global error handler API file me hai, isliye yahan toast zaroori nahi
         } finally {
             setLoading(false);
         }
@@ -55,7 +54,7 @@ const AdminDashboard = () => {
         if (!window.confirm('Are you sure you want to delete this task?')) return;
         try {
             await api.delete(`/tasks/${taskId}`);
-            toast.success('Task deleted successfully!'); // ✅ SUCCESS TOAST ADDED
+            toast.success('Task deleted successfully!');
             fetchData();
         } catch (err) {
             console.error('Failed to delete task:', err);
@@ -66,10 +65,10 @@ const AdminDashboard = () => {
         try {
             if (editingTask) {
                 await api.put(`/tasks/${editingTask._id}`, data);
-                toast.success('Task updated successfully!'); // ✅ SUCCESS TOAST ADDED
+                toast.success('Task updated successfully!');
             } else {
                 await api.post('/tasks', data);
-                toast.success('New task created!'); // ✅ SUCCESS TOAST ADDED
+                toast.success('New task created!');
             }
             setModalOpen(false);
             setEditingTask(null);
@@ -102,7 +101,6 @@ const AdminDashboard = () => {
         });
     };
 
-    // Filter Logic
     const filteredTasks = tasks.filter((task) => {
         const matchesSearch =
             task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -143,7 +141,7 @@ const AdminDashboard = () => {
             </div>
 
             <main className="main-content">
-                {/* Dashboard Tab */}
+                
                 {activeTab === 'dashboard' && stats && (
                     <>
                         <div className="stats-grid">
@@ -219,7 +217,7 @@ const AdminDashboard = () => {
                     </>
                 )}
 
-                {/* Tasks Tab (With Search & Filter) */}
+                
                 {activeTab === 'tasks' && (
                     <>
                         <div className="section-header">
@@ -229,7 +227,7 @@ const AdminDashboard = () => {
                             </button>
                         </div>
 
-                        {/* Search & Filter Controls */}
+                        
                         <div style={{ display: 'flex', gap: '15px', marginBottom: '20px', flexWrap: 'wrap' }}>
                             <input
                                 type="text"
@@ -316,7 +314,7 @@ const AdminDashboard = () => {
                     </>
                 )}
 
-                {/* Create Tab */}
+                
                 {activeTab === 'create' && (
                     <div style={{ textAlign: 'center', paddingTop: '40px' }}>
                         <div className="empty-state">

@@ -5,7 +5,6 @@ const api = axios.create({
     baseURL: '/api',
 });
 
-// Attach token
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -14,7 +13,6 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-// Handle Errors Globally
 api.interceptors.response.use(
     (response) => response,
     (error) => {
@@ -27,7 +25,6 @@ api.interceptors.response.use(
                 window.location.href = '/login';
             }, 1000);
         } else {
-            // Display error toast for all other errors
             toast.error(message);
         }
         return Promise.reject(error);

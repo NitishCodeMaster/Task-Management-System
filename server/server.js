@@ -1,4 +1,4 @@
- const express = require('express');
+const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -6,47 +6,41 @@ const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const connectDB = require('./config/db');
 
-// Load env vars
 dotenv.config();
 
-// Connect Database
 connectDB();
 
-const app = express();
+const app = express(); 
+app.use(helmet({
+    crossOriginResourcePolicy: false,
+}));
 
-// 1. Set security HTTP headers
-app.use(helmet());
-
-// 2. Enable CORS
-app.use(cors());
-
-// 3. Rate limiting (Ek IP se 15 minute me max 100 requests)
+app.use(cors({
+    origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+    credentials: true
+}));
+ 
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
+    windowMs: 15 * 60 * 1000,
     max: 100,
     message: 'Too many requests from this IP, please try again in 15 minutes.'
 });
 app.use('/api', limiter);
-
-// 4. Body parser (limit data payload to 10kb to prevent payload attacks)
+ 
 app.use(express.json({ limit: '10kb' }));
-
-// 5. Data sanitization against NoSQL query injection
+ 
 app.use(mongoSanitize());
 
-// Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/tasks', require('./routes/tasks'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/dashboard', require('./routes/dashboard'));
 
-// Health check
-app.get('/api/health', (req, res) => {
+ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', environment: process.env.NODE_ENV });
 });
 
-// Professional Global Error Handler
-app.use((err, req, res, next) => {
+ app.use((err, req, res, next) => {
     console.error(err.stack);
     const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
     res.status(statusCode).json({

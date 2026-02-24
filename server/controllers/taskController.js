@@ -1,7 +1,5 @@
 const Task = require('../models/Task');
 
-// @desc    Get tasks (admin: all, employee: assigned only)
-// @route   GET /api/tasks
 const getTasks = async (req, res) => {
     try {
         let tasks;
@@ -22,8 +20,6 @@ const getTasks = async (req, res) => {
     }
 };
 
-// @desc    Get single task
-// @route   GET /api/tasks/:id
 const getTask = async (req, res) => {
     try {
         const task = await Task.findById(req.params.id)
@@ -34,7 +30,6 @@ const getTask = async (req, res) => {
             return res.status(404).json({ message: 'Task not found' });
         }
 
-        // Employees can only view their assigned tasks
         if (
             req.user.role === 'employee' &&
             task.assignedTo?._id.toString() !== req.user._id.toString()
@@ -48,8 +43,6 @@ const getTask = async (req, res) => {
     }
 };
 
-// @desc    Create a task (admin only)
-// @route   POST /api/tasks
 const createTask = async (req, res) => {
     try {
         const { title, description, priority, deadline, status, assignedTo } =
@@ -75,8 +68,6 @@ const createTask = async (req, res) => {
     }
 };
 
-// @desc    Update a task
-// @route   PUT /api/tasks/:id
 const updateTask = async (req, res) => {
     try {
         const task = await Task.findById(req.params.id);
@@ -84,15 +75,13 @@ const updateTask = async (req, res) => {
             return res.status(404).json({ message: 'Task not found' });
         }
 
-        // Employees can only update the status of their own tasks
         if (req.user.role === 'employee') {
             if (task.assignedTo?.toString() !== req.user._id.toString()) {
                 return res.status(403).json({ message: 'Access denied' });
             }
-            // Only allow status update for employees
             task.status = req.body.status || task.status;
         } else {
-            // Admin can update everything
+            
             task.title = req.body.title || task.title;
             task.description =
                 req.body.description !== undefined
@@ -118,8 +107,6 @@ const updateTask = async (req, res) => {
     }
 };
 
-// @desc    Delete a task (admin only)
-// @route   DELETE /api/tasks/:id
 const deleteTask = async (req, res) => {
     try {
         const task = await Task.findById(req.params.id);
